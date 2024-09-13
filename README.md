@@ -1,7 +1,7 @@
 # CMSI 3801 Homework
 
 # Homework 1:
-Students: Gabriel Warner
+Students: Gabriel Warner <br>
 Description: Applying concepts such as declarations, expressions, statements, static scope, constants, variables, types, functions, modules, assignments, function calls, higher-order functions, closures, polymorphism, sequencing, selection, iteration, recursion, exceptions, generators, coroutines, and async-await, using Python, JavaScript, and Lua. These concepts were applied by implementing a variety of scripts, including a Quaternions class and a power generator.
 
 ## Testing Instructions
