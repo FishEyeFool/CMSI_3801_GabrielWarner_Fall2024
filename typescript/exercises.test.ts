@@ -2,14 +2,16 @@ import { describe, it } from "node:test"
 import { deepEqual, throws, rejects } from "node:assert/strict"
 import {
   change,
-  // firstThenApply,
-  // powersGenerator,
-  // meaningfulLineCount,
-  // Shape,
+  firstThenApply,
+  powersGenerator,
+  meaningfulLineCount,
+  Shape,
   // BinarySearchTree,
   // Empty,
-  // volume,
-  // surfaceArea,
+  volume,
+  surfaceArea,
+  shapeToString, 
+  equals
 } from "./exercises.js"
 
 function expectChange(
@@ -50,75 +52,101 @@ describe("The change function", () => {
 
 // Uncomment the following tests as you complete the exercises
 
-// describe("The firstThenApply function", () => {
-//   const nonEmpty = (s: string) => s !== ""
-//   const lengthGreaterThan3 = (s: string) => s.length > 3
-//   const lower = (s: string) => s.toLowerCase()
-//   const square = (n: number) => n * n
-//   it("works", () => {
-//     deepEqual(firstThenApply([], nonEmpty, lower), undefined)
-//     deepEqual(firstThenApply(["", "A", "B"], nonEmpty, lower), "a")
-//     deepEqual(
-//       firstThenApply(["", "A", "ABC"], lengthGreaterThan3, lower),
-//       undefined
-//     )
-//     deepEqual(
-//       firstThenApply(["ABC", "ABCD", "ABCDE"], lengthGreaterThan3, lower),
-//       "abcd"
-//     )
-//     deepEqual(
-//       firstThenApply([1, 2, 3], (n) => n > 1, square),
-//       4
-//     )
-//     deepEqual(
-//       firstThenApply([1, 2, 3], (n) => n > 3, square),
-//       undefined
-//     )
-//   })
-// })
+describe("The firstThenApply function", () => {
+  const nonEmpty = (s: string) => s !== ""
+  const lengthGreaterThan3 = (s: string) => s.length > 3
+  const lower = (s: string) => s.toLowerCase()
+  const square = (n: number) => n * n
+  it("works", () => {
+    deepEqual(firstThenApply([], nonEmpty, lower), undefined)
+    deepEqual(firstThenApply(["", "A", "B"], nonEmpty, lower), "a")
+    deepEqual(
+      firstThenApply(["", "A", "ABC"], lengthGreaterThan3, lower),
+      undefined
+    )
+    deepEqual(
+      firstThenApply(["ABC", "ABCD", "ABCDE"], lengthGreaterThan3, lower),
+      "abcd"
+    )
+    deepEqual(
+      firstThenApply([1, 2, 3], (n) => n > 1, square),
+      4
+    )
+    deepEqual(
+      firstThenApply([1, 2, 3], (n) => n > 3, square),
+      undefined
+    )
+  })
+})
 
-// describe("The powers generator", () => {
-//   it("works as expected", () => {
-//     const g1 = powersGenerator(2n)
-//     deepEqual(g1.next(), { value: 1n, done: false })
-//     deepEqual(g1.next(), { value: 2n, done: false })
-//     for (let i = 0; i < 98; i++) g1.next()
-//     deepEqual(g1.next(), {
-//       value: 1267650600228229401496703205376n,
-//       done: false,
-//     })
+describe("The powers generator", () => {
+  it("works as expected", () => {
+    const g1 = powersGenerator(2n)
+    deepEqual(g1.next(), { value: 1n, done: false })
+    deepEqual(g1.next(), { value: 2n, done: false })
+    for (let i = 0; i < 98; i++) g1.next()
+    deepEqual(g1.next(), {
+      value: 1267650600228229401496703205376n,
+      done: false,
+    })
 
-//     const g2 = powersGenerator(3n)
-//     deepEqual(g2.next(), { value: 1n, done: false })
-//     deepEqual(g2.next(), { value: 3n, done: false })
-//     deepEqual(g2.next(), { value: 9n, done: false })
-//     deepEqual(g2.next(), { value: 27n, done: false })
-//     deepEqual(g2.next(), { value: 81n, done: false })
-//   })
-// })
+    const g2 = powersGenerator(3n)
+    deepEqual(g2.next(), { value: 1n, done: false })
+    deepEqual(g2.next(), { value: 3n, done: false })
+    deepEqual(g2.next(), { value: 9n, done: false })
+    deepEqual(g2.next(), { value: 27n, done: false })
+    deepEqual(g2.next(), { value: 81n, done: false })
+  })
+})
 
-// describe("The meaningfulLineCount function", async () => {
-//   await it("throws if no such file", async () => {
-//     rejects(async () => await meaningfulLineCount("NoSuchFile.txt"), /Error/)
-//   })
-//   await it("correctly counts lines for the test file", async () => {
-//     const count = await meaningfulLineCount("../test-for-line-count.txt")
-//     deepEqual(count, 5)
-//   })
-// })
+describe("The meaningfulLineCount function", async () => {
+  await it("throws if no such file", async () => {
+    rejects(async () => await meaningfulLineCount("NoSuchFile.txt"), /Error/)
+  })
+  await it("correctly counts lines for the test file", async () => {
+    const count = await meaningfulLineCount("../test-for-line-count.txt")
+    deepEqual(count, 5)
+  })
+})
 
-// describe("The shape functions", () => {
-//   const sphere: Shape = { kind: "Sphere", radius: 5 }
-//   const box: Shape = { kind: "Box", width: 3, length: 4, depth: 5 }
-//   it("calculates volumes correctly", () => {
-//     deepEqual(volume(sphere), 523.5987755982989)
-//     deepEqual(volume(box), 60)
-//   })
-//   it("calculates surface areas correctly", () => {
-//     deepEqual(surfaceArea(sphere), 314.1592653589793)
-//     deepEqual(surfaceArea(box), 94)
-//   })
-// })
+describe("The shape functions", () => {
+  const sphere: Shape = { kind: "Sphere", radius: 5 }
+  const box: Shape = { kind: "Box", width: 3, length: 4, depth: 5 }
+  const sphere1: Shape = { kind: "Sphere", radius: 5 };
+  const sphere2: Shape = { kind: "Sphere", radius: 5 };
+  const sphere3: Shape = { kind: "Sphere", radius: 6 };
+  const box1: Shape = { kind: "Box", width: 3, length: 4, depth: 5 };
+  const box2: Shape = { kind: "Box", width: 3, length: 4, depth: 5 };
+  const box3: Shape = { kind: "Box", width: 3, length: 4, depth: 6 };
+
+  it("calculates volumes correctly", () => {
+    deepEqual(volume(sphere), 523.5987755982989)
+    deepEqual(volume(box), 60)
+  })
+  it("calculates surface areas correctly", () => {
+    deepEqual(surfaceArea(sphere), 314.1592653589793)
+    deepEqual(surfaceArea(box), 94)
+  })
+  /* 
+    The following shapeToString and equals tests were written by Gabriel Warner 
+    and are not part of the original assignment provided by Professor Toal.
+  */
+  it("converts shapes to strings correctly (Gabriel Warner added this test)", () => {
+    deepEqual(shapeToString(sphere), 'Sphere with radius 5');
+    deepEqual(shapeToString(box), 'Box with width 3, height 4, and depth 5');
+  });
+  it("compares spheres correctly (Gabriel Warner added this test)", () => {
+    deepEqual(equals(sphere1, sphere2), true);
+    deepEqual(equals(sphere1, sphere3), false);
+  });
+  it("compares boxes correctly (Gabriel Warner added this test)", () => {
+    deepEqual(equals(box1, box2), true);
+    deepEqual(equals(box1, box3), false);
+  });
+  it("returns false for different shape kinds (Gabriel Warner added this test)", () => {
+    deepEqual(equals(sphere1, box1), false);
+  });
+})
 
 // describe("The BinarySearchTree class", () => {
 //   let t: BinarySearchTree<string>

@@ -31,11 +31,12 @@ expect (change(10000000000005) = [400000000000; 0; 1; 0]);;
 
 (* Uncomment the following tests as you complete the exercises *)
 
-(*
+
 let non_empty s = s <> "";;
 let length_greater_than_3 s = String.length s > 3;;
 let lower s = Some (String.lowercase_ascii s);;
 let square n = Some(n * n);;
+
 
 suite "first_then_apply";;
 expect (first_then_apply [] non_empty lower = None);;
@@ -66,6 +67,7 @@ try (meaningful_line_count("no-such-file.txt") |> fun _ -> expect false) with
   | Sys_error _ -> expect true;;
 expect(meaningful_line_count("../test-for-line-count.txt") == 5);;
 
+
 suite "shape";;
 let s1 = Sphere 5.0 in
 let s2 = Box (3.0, 4.0, 5.0) in (
@@ -73,8 +75,14 @@ let s2 = Box (3.0, 4.0, 5.0) in (
   expect (volume s2 = 60.0);
   expect (surface_area s1 = 314.1592653589793);
   expect (surface_area s2 = 94.0);
+
+  (* The following shape_to_string tests were written by Gabriel Warner 
+  and are not part of the original assignment provided by Professor Toal. *)
+  expect (shape_to_string s1 = "Sphere with radius 5");
+  expect (shape_to_string s2 = "Box with width 3, length 4, and depth 5");
 );;
 
+(*
 suite "binary search tree";;
 let t1 = Empty in
 let t2 = insert 5 t1 in
