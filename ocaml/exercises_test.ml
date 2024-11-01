@@ -82,7 +82,6 @@ let s2 = Box (3.0, 4.0, 5.0) in (
   expect (shape_to_string s2 = "Box with width 3, length 4, and depth 5");
 );;
 
-(*
 suite "binary search tree";;
 let t1 = Empty in
 let t2 = insert 5 t1 in
@@ -105,6 +104,5 @@ let t5 = insert 4 t4 in (
   expect (inorder t4 = [3; 5; 7]);
   expect (inorder t5 = [3; 4; 5; 7]);
 );;
-*)
 
 Printf.printf "\n%d passed, %d failed\n" !passes !failures;;

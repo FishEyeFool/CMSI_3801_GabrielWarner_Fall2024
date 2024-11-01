@@ -94,6 +94,7 @@ let meaningful_line_count file_name =
     loop 0
   in
   Fun.protect ~finally work
+;;
 
 (**
  * @brief Defines geometric shapes and calculates their volume and surface area.
@@ -132,17 +133,61 @@ let volume shape =
   match shape with
   | Sphere radius -> (4.0 /. 3.0) *. Float.pi *. radius ** 3.0
   | Box (width, length, depth) -> width *. length *. depth
+;;
 
 let surface_area shape =
   match shape with 
   | Sphere radius -> 4.0 *. Float.pi *. radius ** 2.0
   | Box (width, length, depth) -> 
       2.0 *. (width *. length +. length *. depth +. depth *. width)
+;;
 
 let shape_to_string shape =
   match shape with 
   | Sphere radius -> Printf.sprintf "Sphere with radius %.0f" radius
   | Box (width, length, depth) -> 
       Printf.sprintf "Box with width %.0f, length %.0f, and depth %.0f" width length depth
+;;
 
 (* Write your binary search tree implementation here *)
+
+type 'a binary_search_tree =
+  | Empty
+  | Node of 'a binary_search_tree * 'a * 'a binary_search_tree
+
+let rec size tree =
+  match tree with
+  | Empty -> 0
+  | Node (left, _, right) -> 1 + size left + size right
+;;
+
+let rec contains value tree =
+  match tree with
+  | Empty -> false
+  | Node (left, node_value, right) -> 
+    if value = node_value then
+      true
+    else if value < node_value then
+      contains value left
+    else
+      contains value right
+;;
+
+let rec inorder tree =
+  match tree with
+  | Empty -> []
+  | Node (left, node_value, right) -> 
+    inorder left @ [node_value] @ inorder right
+;;
+
+let rec insert value tree =
+  match tree with
+  | Empty -> Node (Empty, value, Empty)
+  | Node (left, node_value, right) -> 
+    if value < node_value then
+      Node (insert value left, node_value, right)
+    else if value > node_value then
+      Node (left, node_value, insert value right)
+    else
+      tree
+;;
