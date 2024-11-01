@@ -12,7 +12,26 @@ let change amount =
     in
     aux amount denominations
 
-(* Write your first then apply function here *)
+(** 
+ * @brief Applies a consumer function to the first element 
+ *        in a list that satisfies a given predicate.
+ *
+ *  The 'first_then_apply' function takes a list of elements, 
+ *  a predicate function, and a consumer function. It finds the 
+ *  first element in the list that satisfies the predicate 
+ *  and applies the consumer function to it. If no such element is found, it returns 'None'.
+ *
+ * Parameters:
+ *   - list: 'a list - A list of elements to be processed.
+ *   - predicate: 'a -> bool - A function that takes an element and returns a 'bool' 
+       indicating whether the element satisfies the condition.
+ *   - consumer: 'a -> 'b option - A function that takes an element and returns an optional result.
+ *
+ * Returns:
+ *   - 'b option - 'Some' the result of applying the consumer function 
+        to the first element that satisfies the predicate,
+ *      or 'None' if no such element is found.
+ *)
 let first_then_apply 
   (list: 'a list) 
   (predicate: 'a -> bool) 
@@ -22,7 +41,19 @@ let first_then_apply
   | None -> None
 ;;
 
-(* Write your powers generator here *)
+(** 
+ * @brief Generates an infinite sequence of powers of a given base.
+ *
+ * The 'powers_generator' function takes an integral base and 
+   returns an infinite sequence of its powers, starting from 1.
+ * It uses a recursive helper function to generate the sequence.
+ *
+ * Parameters:
+ *   - base: int - The base number for generating powers.
+ *
+ * Returns:
+ *   - (unit -> int Seq.node) - An infinite sequence of powers of the given base.
+ *)
 let powers_generator base = 
   let rec generate_from power () = 
     Seq.Cons (power, generate_from (power * base))
@@ -30,7 +61,22 @@ let powers_generator base =
   generate_from 1
 ;;
 
-(* Write your line count function here *)
+(** 
+ * @brief Counts the number of meaningful lines in a file.
+ *
+ * The 'meaningful_line_count' function reads a file and 
+   counts the number of meaningful lines it contains.
+ * A meaningful line is defined as a line that is not empty and does not start with a '#' character.
+ *
+ * Parameters:
+ *   - file_name: string - The name of the file to be processed.
+ *
+ * Returns:
+ *   - int - The number of meaningful lines in the file.
+ *
+ *   meaningful_line_count "example.txt"
+ *   -- Returns: 2
+ *)
 let meaningful_line_count file_name =
   let input_channel = open_in file_name in
   let finally () = close_in input_channel in
@@ -49,7 +95,35 @@ let meaningful_line_count file_name =
   in
   Fun.protect ~finally work
 
-(* Write your shape type and associated functions here *)
+(**
+ * @brief Defines geometric shapes and calculates their volume and surface area.
+ *
+ * This module provides a data type for geometric shapes (Sphere and Box) and 
+   functions to calculate their volume and surface area.
+ * It also includes a function to convert a shape to a string representation.
+ *
+ * Data Types:
+ *   - shape: Represents a geometric shape, which can be either a Sphere or a Box.
+ *
+ * Functions:
+ *   - volume: Calculates the volume of a given shape.
+ *       Parameters:
+ *           - shape: The shape for which to calculate the volume.
+ *       Returns:
+ *           - float: The volume of the shape.
+ *
+ *   - surface_area: Calculates the surface area of a given shape.
+ *       Parameters:
+ *           - shape: The shape for which to calculate the surface area.
+ *       Returns:
+ *           - float: The surface area of the shape.
+ *
+ *   - shape_to_string: Converts a shape to its string representation.
+ *       Parameters:
+ *           - shape: The shape to be converted to a string.
+ *       Returns:
+ *           - string: The string representation of the shape.
+ *)
 type shape = 
   | Sphere of float
   | Box of float * float * float

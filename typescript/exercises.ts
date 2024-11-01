@@ -157,4 +157,180 @@ export function equals(shape1: Shape, shape2: Shape): boolean {
   return false;
 }
 
-// Write your binary search tree implementation here
+/**
+ * Interface representing a generic Binary Search Tree (BST).
+ */
+export interface BinarySearchTree<T> {
+  /**
+   * Returns the number of elements in the BST.
+   * @returns {number} The size of the BST.
+   */
+  size(): number;
+
+  /**
+   * Inserts a value into the BST and returns the updated BST.
+   * @param {T} value - The value to insert.
+   * @returns {BinarySearchTree<T>} The updated BST.
+   */
+  insert(value: T): BinarySearchTree<T>;
+
+  /**
+   * Checks if a value is present in the BST.
+   * @param {T} value - The value to check.
+   * @returns {boolean} True if the value is present, false otherwise.
+   */
+  contains(value: T): boolean;
+
+  /**
+   * Returns an iterable for in-order traversal of the BST.
+   * @returns {Iterable<T>} An iterable for in-order traversal.
+   */
+  inorder(): Iterable<T>;
+
+  /**
+   * Returns a string representation of the BST.
+   * @returns {string} The string representation of the BST.
+   */
+  toString(): string;
+}
+
+/**
+ * Class representing an empty node in a BST.
+ */
+export class Empty<T> implements BinarySearchTree<T> {
+  /**
+   * Returns the number of elements in the BST.
+   * @returns {number} The size of the BST, which is 0 for an empty node.
+   */
+  size(): number {
+    return 0;
+  }
+
+  /**
+   * Inserts a value into the BST and returns a new node containing the value.
+   * @param {T} value - The value to insert.
+   * @returns {BinarySearchTree<T>} A new node containing the value.
+   */
+  insert(value: T): BinarySearchTree<T> {
+    return new Node(value, new Empty(), new Empty());
+  }
+
+  /**
+   * Checks if a value is present in the BST.
+   * @param {T} value - The value to check.
+   * @returns {boolean} False, as an empty node cannot contain any value.
+   */
+  contains(value: T): boolean {
+    return false;
+  }
+
+  /**
+   * Returns an iterable for in-order traversal of the BST.
+   * @returns {Iterable<T>} An empty iterable.
+   */
+  inorder(): Iterable<T> {
+    return this._inorder();
+  }
+
+  /**
+   * Private generator method for in-order traversal.
+   * @returns {Iterable<T>} An empty iterable.
+   */
+  private *_inorder(): Iterable<T> {
+    return;
+  }
+
+  /**
+   * Returns a string representation of the empty node.
+   * @returns {string} The string representation of the empty node, which is "()".
+   */
+  toString(): string {
+    return "()";
+  }
+}
+
+/**
+ * Class representing a node in a BST.
+ */
+class Node<T> implements BinarySearchTree<T> {
+  private value: T;
+  private left: BinarySearchTree<T>;
+  private right: BinarySearchTree<T>;
+
+  /**
+   * Creates a new node.
+   * @param {T} value - The value of the node.
+   * @param {BinarySearchTree<T>} left - The left subtree.
+   * @param {BinarySearchTree<T>} right - The right subtree.
+   */
+  constructor(value: T, left: BinarySearchTree<T>, right: BinarySearchTree<T>) {
+    this.value = value;
+    this.left = left;
+    this.right = right;
+  }
+
+  /**
+   * Returns the number of elements in the BST.
+   * @returns {number} The size of the BST.
+   */
+  size(): number {
+    return 1 + this.left.size() + this.right.size();
+  }
+
+  /**
+   * Inserts a value into the BST and returns the updated BST.
+   * @param {T} value - The value to insert.
+   * @returns {BinarySearchTree<T>} The updated BST.
+   */
+  insert(value: T): BinarySearchTree<T> {
+    if (value < this.value) {
+      return new Node(this.value, this.left.insert(value), this.right);
+    } else if (value > this.value) {
+      return new Node(this.value, this.left, this.right.insert(value));
+    }
+    return this;
+  }
+
+  /**
+   * Checks if a value is present in the BST.
+   * @param {T} value - The value to check.
+   * @returns {boolean} True if the value is present, false otherwise.
+   */
+  contains(value: T): boolean {
+    if (value === this.value) {
+      return true;
+    } else if (value < this.value) {
+      return this.left.contains(value);
+    } else {
+      return this.right.contains(value);
+    }
+  }
+
+  /**
+   * Returns an iterable for in-order traversal of the BST.
+   * @returns {Iterable<T>} An iterable for in-order traversal.
+   */
+  inorder(): Iterable<T> {
+    return this._inorder();
+  }
+
+  /**
+   * Private generator method for in-order traversal.
+   * @returns {Iterable<T>} An iterable for in-order traversal.
+   */
+  private *_inorder(): Iterable<T> {
+    yield* this.left.inorder();
+    yield this.value;
+    yield* this.right.inorder();
+  }
+
+  /**
+   * Returns a string representation of the node.
+   * @returns {string} The string representation of the node.
+   */
+  toString(): string {
+    const leftStr = this.left instanceof Empty ? "" : this.left.toString();
+    const rightStr = this.right instanceof Empty ? "" : this.right.toString();
+    return `(${leftStr}${this.value}${rightStr})`;
+  }
+}
