@@ -6,6 +6,12 @@ module Exercises
       volume,
       surfaceArea,
       meaningfulLineCount,
+      BST(Empty),
+      size,     
+      inorder,
+      insert,
+      contains,
+      show
     ) where
 
 import qualified Data.Map as Map
@@ -103,8 +109,8 @@ trimSpaces = unpack . replace (pack " ") (pack "") . pack . filter (not . isSpac
 
 isTextLine :: String -> Bool
 isTextLine line =
-  let trimmed = trimSpaces line
-  in not (null trimmed) && head trimmed /= '#'
+    let trimmed = trimSpaces line
+    in not (null trimmed) && head trimmed /= '#'
 
 meaningfulLineCount :: FilePath -> IO Int
 meaningfulLineCount filePath = do
@@ -152,9 +158,9 @@ Functions:
       - Double: The surface area of the shape.
 -}
 data Shape
-  = Sphere Double
-  | Box Double Double Double
-  deriving (Show, Eq)
+    = Sphere Double
+    | Box Double Double Double
+    deriving (Show, Eq)
 
 volume :: Shape -> Double
 volume (Sphere radius) = (4 / 3) * pi * radius^3
@@ -163,6 +169,61 @@ volume (Box width length depth) = width * length * depth
 surfaceArea :: Shape -> Double
 surfaceArea (Sphere radius) = 4.0 * pi * radius^2
 surfaceArea (Box width length depth) = 
-  2.0 * (width * length + length * depth + depth * width)
+    2.0 * (width * length + length * depth + depth * width)
 
--- Write your binary search tree algebraic type here
+{-|
+Description : A simple implementation of a Binary Search Tree (BST) in Haskell.
+
+The `BST` data type represents a binary search tree, which can either be empty (`Empty`) or a node (`Node`) containing a value and two subtrees.
+
+Functions:
+- `size`: Computes the number of nodes in the BST.
+- `inorder`: Returns a list of all values in the BST in in-order traversal.
+- `insert`: Inserts a new value into the BST, maintaining the BST property.
+- `contains`: Checks if a given value is present in the BST.
+
+Instance:
+- `Show`: Provides a string representation of the BST.
+-}
+data BST a
+    = Empty
+    | Node a (BST a) (BST a)
+
+size :: BST a -> Int
+size Empty = 0
+size (Node _ left right) = 1 + size left + size right
+
+inorder :: BST a -> [a]
+inorder Empty = []
+inorder (Node value left right) = inorder left ++ [value] ++ inorder right
+
+insert :: Ord a => a -> BST a -> BST a
+insert value Empty = Node value Empty Empty
+insert value (Node nodeValue left right)
+    | value < nodeValue = Node nodeValue (insert value left) right
+    | value > nodeValue = Node nodeValue left (insert value right)
+    | otherwise = Node nodeValue left right
+
+contains :: (Ord a) => a -> BST a -> Bool
+contains _ Empty = False
+contains value (Node nodeValue left right)
+    | value == nodeValue = True
+    | value < nodeValue = contains value left
+    | otherwise = contains value right
+    
+
+instance (Show a) => Show (BST a) where
+    show :: Show a => BST a -> String
+    show Empty = "()"
+    show (Node value Empty Empty) = "(" ++ show value ++ ")"
+    show (Node value left Empty) = "(" ++ show left ++ show value ++ ")"
+    show (Node value Empty right) = "(" ++ show value ++ show right ++ ")"
+    show (Node value left right) = "(" ++ show left ++ show value ++ show right ++ ")"
+  
+  
+  
+  
+  
+  
+  
+    
