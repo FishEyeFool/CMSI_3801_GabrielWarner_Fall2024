@@ -21,16 +21,13 @@ let change amount =
  *  first element in the list that satisfies the predicate 
  *  and applies the consumer function to it. If no such element is found, it returns 'None'.
  *
- * Parameters:
- *   - list: 'a list - A list of elements to be processed.
- *   - predicate: 'a -> bool - A function that takes an element and returns a 'bool' 
-       indicating whether the element satisfies the condition.
- *   - consumer: 'a -> 'b option - A function that takes an element and returns an optional result.
- *
- * Returns:
- *   - 'b option - 'Some' the result of applying the consumer function 
-        to the first element that satisfies the predicate,
- *      or 'None' if no such element is found.
+ *  @param list: 'a list - A list of elements to be processed.
+ *  @param predicate: 'a -> bool - A function that takes an element and returns a 'bool' 
+                       indicating whether the element satisfies the condition.
+ *  @param consumer: 'a -> 'b option - A function that takes an element and returns an optional result.
+ *  @return 'b option - 'Some' the result of applying the consumer function 
+             to the first element that satisfies the predicate,
+ *           or 'None' if no such element is found.
  *)
 let first_then_apply 
   (list: 'a list) 
@@ -47,12 +44,9 @@ let first_then_apply
  * The 'powers_generator' function takes an integral base and 
    returns an infinite sequence of its powers, starting from 1.
  * It uses a recursive helper function to generate the sequence.
- *
- * Parameters:
- *   - base: int - The base number for generating powers.
- *
- * Returns:
- *   - (unit -> int Seq.node) - An infinite sequence of powers of the given base.
+ * 
+ * @param base: int - The base number for generating powers.
+ * @return (unit -> int Seq.node) - An infinite sequence of powers of the given base.
  *)
 let powers_generator base = 
   let rec generate_from power () = 
@@ -68,11 +62,8 @@ let powers_generator base =
    counts the number of meaningful lines it contains.
  * A meaningful line is defined as a line that is not empty and does not start with a '#' character.
  *
- * Parameters:
- *   - file_name: string - The name of the file to be processed.
- *
- * Returns:
- *   - int - The number of meaningful lines in the file.
+ * @param file_name: string - The name of the file to be processed.
+ * @return int - The number of meaningful lines in the file.
  *
  *   meaningful_line_count "example.txt"
  *   -- Returns: 2
@@ -108,22 +99,16 @@ let meaningful_line_count file_name =
  *
  * Functions:
  *   - volume: Calculates the volume of a given shape.
- *       Parameters:
- *           - shape: The shape for which to calculate the volume.
- *       Returns:
- *           - float: The volume of the shape.
+ *       @param shape: The shape for which to calculate the volume.
+ *       @return float: The volume of the shape.
  *
  *   - surface_area: Calculates the surface area of a given shape.
- *       Parameters:
- *           - shape: The shape for which to calculate the surface area.
- *       Returns:
- *           - float: The surface area of the shape.
+ *       @param shape: The shape for which to calculate the surface area.
+ *       @return float: The surface area of the shape.
  *
  *   - shape_to_string: Converts a shape to its string representation.
- *       Parameters:
- *           - shape: The shape to be converted to a string.
- *       Returns:
- *           - string: The string representation of the shape.
+ *       @param shape: The shape to be converted to a string.
+ *       @return string: The string representation of the shape.
  *)
 type shape = 
   | Sphere of float
@@ -149,7 +134,53 @@ let shape_to_string shape =
       Printf.sprintf "Box with width %.0f, length %.0f, and depth %.0f" width length depth
 ;;
 
-(* Write your binary search tree implementation here *)
+(** 
+ * @brief Defines a binary search tree (BST) and provides basic operations on it.
+ *
+ * The binary search tree allows for efficient insertion, deletion, 
+ * and lookup of elements. For any given node, all values in the 
+ * left subtree are less than the node's value, and all values in 
+ * the right subtree are greater.
+ *
+ * Type:
+ *   - 'a binary_search_tree: A binary search tree that can hold values 
+ *     of any type 'a. It can either be empty or consist of a node 
+ *     containing a value and two subtrees.
+ *
+ * Variants:
+ *   - Empty: Represents an empty binary search tree.
+ *   - Node of 'a binary_search_tree * 'a * 'a binary_search_tree: 
+ *     Represents a node with a value of type 'a', a left subtree, 
+ *     and a right subtree.
+ *
+ * Functions:
+ *
+ *   - size: 
+ *     Counts the number of nodes in the binary search tree.
+ *     @param tree: 'a binary_search_tree - The tree to be counted.
+ *     @return int - The total number of nodes in the tree.
+ *
+ *   - contains: 
+ *     Checks if a given value exists in the binary search tree.
+ *     @param value: 'a - The value to search for in the tree.
+ *     @param tree: 'a binary_search_tree - The tree to search.
+ *     @return bool - True if the value exists, false otherwise.
+ *
+ *   - inorder: 
+ *     Returns a list of the elements in the binary search tree in sorted order.
+ *     @param tree: 'a binary_search_tree - The tree to traverse.
+ *     @return 'a list - A list of the elements in sorted order.
+ *
+ *   - insert: 
+ *     Inserts a new value into the binary search tree.
+ *     @param value: 'a - The value to be inserted.
+ *     @param tree: 'a binary_search_tree - The tree to insert the value into.
+ *     @return 'a binary_search_tree - The updated tree with the new value.
+ *
+ *   Example:
+ *   - insert 5 Empty
+ *   -- Returns: Node (Empty, 5, Empty)
+ *)
 
 type 'a binary_search_tree =
   | Empty
