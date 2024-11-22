@@ -8,6 +8,13 @@ Description: Applying concepts such as declarations, expressions, statements, st
 Students: Gabriel Warner <br>
 Description: Applying concepts such as abstraction, objects, encapsulation, information hiding, inheritance, dynamic polymorphism, streams, abstract types, records, and sealed classes, using Java, Kotlin, and Swift.
 
+# Homework 3:
+Students: Gabriel Warner <br>
+Description: Applying concepts such as type inference, type variables, algebraic data types, functional programming, loop-free programming, point-free programming, typeclasses, and monadic file processing, using TypeScript, OCaml, and Haskell.
+
+# Homework 4:
+Students: Gabriel Warner <br>
+Description: 
 ## Testing Instructions
 
 ### Lua

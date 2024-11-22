@@ -1,20 +1,56 @@
+/// A generic `Stack` implementation using a `Vec` as the underlying storage.
+///
+/// The `Stack` struct provides standard stack operations:
+/// - Push: Add an element to the top of the stack.
+/// - Pop: Remove and return the element from the top of the stack.
+/// - Peek: View the element at the top of the stack without removing it.
+/// - Check if the stack is empty.
+/// - Get the number of elements in the stack.
 pub struct Stack<T> {
     // stack items are private by default
     items: Vec<T>,
 }
 
 impl<T> Stack<T> {
-    // Implement new
+    /// Creates a new, empty `Stack`.
+    pub fn new() -> Self {
+        Stack { items: Vec::new() }
+    }
 
-    // Implement push
+    /// Pushes an item onto the top of the stack.
+    ///
+    /// # Arguments
+    ///
+    /// * `item` - The item to be pushed onto the stack.
+    pub fn push(&mut self, item: T) {
+        self.items.push(item);
+    }
 
-    // Implement pop
+    /// Removes and returns the item at the top of the stack.
+    ///
+    /// Returns `None` if the stack is empty.
+    pub fn pop(&mut self) -> Option<T> {
+        self.items.pop()
+    }
 
-    // Implement peek
+    /// Returns a reference to the item at the top of the stack without removing it.
+    ///
+    /// Returns `None` if the stack is empty.
+    pub fn peek(&self) -> Option<&T> {
+        self.items.last()
+    }
 
-    // Implement is_empty
+    /// Checks if the stack is empty.
+    ///
+    /// Returns `true` if the stack is empty, otherwise `false`.
+    pub fn is_empty(&self) -> bool {
+        self.items.is_empty()
+    }
 
-    // Implement len
+    /// Returns the number of items in the stack.
+    pub fn len(&self) -> usize {
+        self.items.len()
+    }
 }
 
 #[cfg(test)]
