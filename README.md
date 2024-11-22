@@ -14,7 +14,8 @@ Description: Applying concepts such as type inference, type variables, algebraic
 
 # Homework 4:
 Students: Gabriel Warner <br>
-Description: 
+Description: Demonstrating the ability to write and test functions and user-defined types in C, C++, and Rust and employing manual memory management techniques in the development of a dynamic abstract data type in a systems programming language.
+
 ## Testing Instructions
 
 ### Lua
