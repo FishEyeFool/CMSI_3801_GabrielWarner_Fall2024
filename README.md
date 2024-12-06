@@ -16,6 +16,10 @@ Description: Applying concepts such as type inference, type variables, algebraic
 Students: Gabriel Warner <br>
 Description: Demonstrating the ability to write and test functions and user-defined types in C, C++, and Rust and employing manual memory management techniques in the development of a dynamic abstract data type in a systems programming language.
 
+# Homework 5:
+Students: Gabriel Warner <br>
+Description: Demonstrating the ability to write concurrent code in Go, an understanding of basic concurrency principles, and a cursory understanding of the difference between shared-memory concurrency and message-passing concurrency.
+
 ## Testing Instructions
 
 ### Lua
